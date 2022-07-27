@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  verify_yew:
+    container_name: verify_yew
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    entrypoint: trunk serve --address 0.0.0.0
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.verify_yew.rule=Host(`211.73.81.219`)"
+      - "traefik.http.routers.verify_yew.tls=true"
+      - "traefik.http.routers.verify_yew.tls.certresolver=production"
+    ports:
+      - "3000:8080"
+    networks:
+      - verify
+networks:
+  verify:
+    external:
+      name: traefik
