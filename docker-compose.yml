@@ -8,14 +8,13 @@ services:
     entrypoint: trunk serve --address 0.0.0.0
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.verify_yew.rule=Host(`iprooftestverify.com`)"
+      - "traefik.http.routers.verify_yew.rule=Host(`www.i-proof.com.tw`)&&PathPrefix(`/verify`)"
       - "traefik.http.routers.verify_yew.tls=true"
-      - "traefik.http.routers.verify_yew.tls.certresolver=production"
     ports:
-      - "3000:8080"
+      - "3003:8080"
     networks:
       - verify
 networks:
   verify:
     external:
-      name: traefik
+      name: traefik-dev
